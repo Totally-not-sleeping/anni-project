@@ -15,13 +15,18 @@ function TextFormVariant({ numOfQuestions, onSubmit, numPer, RevalidateAll }) {
   const [success, setSuccess] = useState(false);
   const [countdown, setCountdown] = useState(3);
   const [wrong, setWrong] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   async function onSubmitHandler(e) {
     e.preventDefault();
+    setMsg("");
+    setWrong([]);
+    setLoading(true);
     const formData = new FormData(e.target);
     let obj = {};
     formData.forEach((value, key) => (obj[key] = value.toUpperCase().trim()));
     let res = await onSubmit(obj, getCookie("user_id"));
+    setLoading(false);
     setMsg(res?.message);
     setSuccess(res?.success);
     if (res?.success) {
@@ -37,7 +42,7 @@ function TextFormVariant({ numOfQuestions, onSubmit, numPer, RevalidateAll }) {
       }, 3000);
     } else {
       setWrong([...res?.wrong]);
-      console.log(res?.wrong)
+      console.log(res?.wrong);
       setTimeout(() => {
         setMsg("");
         setWrong([]);
@@ -94,6 +99,11 @@ function TextFormVariant({ numOfQuestions, onSubmit, numPer, RevalidateAll }) {
       >
         Let{"'"}s check...
       </button>
+      {loading && (
+        <p className="text-yellow-400 text-lg font-bold">
+          Loading... please wait
+        </p>
+      )}
       {msg ? (
         <p
           className={`text-xl ${

@@ -16,6 +16,9 @@ function PuzzleDynamicForm({
 }) {
   async function onSubmitHandler(e) {
     e.preventDefault();
+    setMsg("");
+    setWrong([]);
+    setLoading(true);
     const formData = new FormData(e.target);
     let obj = {};
     formData.forEach((value, key) => (obj[key] = value.toLowerCase().trim()));
@@ -23,6 +26,7 @@ function PuzzleDynamicForm({
       Object.values(obj).values(),
       getCookie("user_id")
     );
+    setLoading(false);
     setMsg(res?.message);
     setSuccess(res?.success);
     if (res?.success) {
@@ -58,6 +62,7 @@ function PuzzleDynamicForm({
   const [success, setSuccess] = useState(false);
   const [countdown, setCountdown] = useState(3);
   const [wrong, setWrong] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   function handleAddInput() {
     let id = `q${Math.round(Math.random() * 99999)}${Math.round(
@@ -157,6 +162,11 @@ function PuzzleDynamicForm({
           Submit
         </button>
       </form>
+      {loading && (
+        <p className="text-yellow-400 text-lg font-bold">
+          Loading... please wait
+        </p>
+      )}
       {msg ? (
         <p
           className={`text-xl ${
