@@ -19,7 +19,7 @@ function PuzzleDynamicForm({
     setMsg("");
     setWrong([]);
     setLoading(true);
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.target); 
     let obj = {};
     formData.forEach((value, key) => (obj[key] = value.toLowerCase().trim()));
     let res = await submitFunction(
