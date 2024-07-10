@@ -21,6 +21,15 @@ async function Finale() {
     return await img;
   }
 
+  async function getBonusHandler(bonus) {
+    "use server";
+    console.log(bonus);
+    try {
+      let img = await GetImage(bonus);
+      return await img;
+    } catch (e) {}
+  }
+
   async function addMessage(userId, message) {
     "use server";
     let res = await AddMessage(new ObjectId(userId), message);
@@ -49,6 +58,7 @@ async function Finale() {
         <FinalImage
           onClickHandler={getImageHandler}
           setFinalTime={setFinalTime}
+          getBonusHandler={getBonusHandler}
         />
       ) : (
         <PageAnimation

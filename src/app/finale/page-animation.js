@@ -91,8 +91,16 @@ function PageAnimation({ addMessage, checkName, revalidateFinale }) {
           <label htmlFor="comments" className="text-2xl">
             Please write some nice messages for your fellow members!
           </label>
-          <textarea className="text-slate-50 bg-slate-800" type="text" name="comments" id="comments" required />
-          <button>Send!</button>
+          <textarea
+            className="text-slate-50 bg-slate-800 min-h-[200px] p-[10px] rounded-2xl"
+            type="text"
+            name="comments"
+            id="comments"
+            required
+          />
+          <button className="p-[10px] bg-slate-600 border-[3px] border-slate-800">
+            Send!
+          </button>
           {formMsg && <p>{formMsg}</p>}
         </form>
       )}
@@ -109,13 +117,27 @@ function PageAnimation({ addMessage, checkName, revalidateFinale }) {
 
       {final && (
         <form className="flex flex-col gap-[30px]" onSubmit={onNameSubmit}>
-          <label htmlFor="comments">
+          <label htmlFor="comments" className="text-2xl">
             What is the real name of the person who you&apos;re trying to seek?
           </label>
-          <input type="text" name="truename" id="trueName" />
-          <button type="submit">Let&apos;s see for one final time!</button>
-          {finalMsg && <p>{finalMsg}</p>}
-          {isCompleted && <p>Going to our final image in {countdown}</p>}
+          <input
+            type="text"
+            name="truename"
+            id="trueName"
+            className="text-slate-50 bg-slate-800 p-[10px] border-[3px] border-slate-50 rounded-2xl"
+          />
+          <button
+            type="submit"
+            className="p-[10px] bg-slate-600 border-[3px] border-slate-800"
+          >
+            Let&apos;s see for one final time!
+          </button>
+          {finalMsg && <p className="w-full text-center text-xl">{finalMsg}</p>}
+          {isCompleted && (
+            <p className="w-full text-center text-lg">
+              Going to our final image in {countdown}
+            </p>
+          )}
         </form>
       )}
     </div>
